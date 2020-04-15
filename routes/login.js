@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-
-/* --- LOGIN ROUTES ---
---------------------- */
+router.get('/login', (req, res) => {
+  res.render("signin");
+});
 
 router.post('/login', (req, res) => {
   res.cookie('username', req.body.username);
