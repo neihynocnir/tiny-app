@@ -1,12 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-
-const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-};
-
+const urlDatabase = require('../db/urlsDB');
 
 const generateRandomString = () => {
   return Math.random().toString(36).replace('0.','').slice(0,6);
