@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const urlDatabase = require('../db/urlsDB');
-
-const generateRandomString = () => {
-  return Math.random().toString(36).replace('0.','').slice(0,6);
-};
+const generateRandomString = require('../controllers/genRandomSring');
 
 const addNewUrl = (shortURL, longURL) => {
   !longURL.includes('http') ? longURL = 'http://' + longURL : longURL;

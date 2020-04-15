@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../db/usersDB');
+const generateRandomString = require('../controllers/genRandomSring');
 
 
 router.get('/register', (req, res) => {
@@ -8,8 +9,11 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req,res) => {
-
+  let userID = generateRandomString();
+  const { email, password } = req.body;
+  console.log (userID);
+  console.log(email);
+  res.redirect('/urls/');
 })
-
 
 module.exports = router;
