@@ -25,7 +25,9 @@ const deleteUrl = (shortURL) => {
   delete urlDatabase[shortURL];
 };
 
-
+router.get('/', (req, res) => {
+  res.redirect('/urls');
+});
 
 router.get('/urls', (req, res) => {
   let templateVars = { 
