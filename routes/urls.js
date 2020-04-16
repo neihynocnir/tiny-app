@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const urlDatabase = require('../db/urlsDB');
 const generateRandomString = require('../controllers/genRandomString');
-const findUserByID = require('../controllers/findUserByID')
+const findUserByID = require('../controllers/findUserByID');
+const findUrlsUser = require('../controllers/findUrlByUser');
 
 // CREATE an new URL in DB
-const addNewUrl = (shortURL, longURL) => {
+const addNewUrl = (shortURL, longURL, user) => {
   !longURL.includes('http') ? longURL = 'http://' + longURL : longURL;
-  urlDatabase[shortURL] = longURL;
+  urlDatabase[shortURL] = { longURL: longURL, userID: user };
 };
 
 // UPDATE an URL in DB
-const updateUrl = (shortURL, longURL) => {
-  urlDatabase[shortURL] = longURL;
+const updateUrl = (shortURL, longURL, user) => {
+  urlDatabase[shortURL] = { longURL: longURL, userID: user };
 };
 
 // DELETE an URL in DB
@@ -24,7 +25,7 @@ const deleteUrl = (shortURL) => {
 router.get('/urls', (req, res) => {
   let templateVars = { 
     user: findUserByID(req.session["user_id"]),
-    urls: urlDatabase
+    urls: findUrlsUser(user.id)
   };
   res.render("urls_index", templateVars);
 });
@@ -41,7 +42,8 @@ router.get('/urls/new', (req, res) => {
 router.post('/urls',(req,res) => {
   let shortURL = generateRandomString();
   let longURL = req.body.longURL;
-  addNewUrl(shortURL,longURL);
+  let user = req.session.user_id;
+  addNewUrl(shortURL,longURL, user);
   res.redirect(`/urls/${shortURL}`);
 });
 
@@ -57,7 +59,7 @@ router.get('/urls/:shortURL', (req, res) => {
 
 // Redirect to the URL
 router.get('/u/:shortURL', (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL];
+  let longURL = urlDatabase[req.params.shortURL].longURL;
   res.redirect(`${longURL}`);
 });
 
@@ -73,9 +75,11 @@ router.get('/urls/:shortURL/update', (req, res) => {
 
 // Update the specific URL
 router.post('/urls/:shortURL', (req, res) => {
+  let user = req.session.user_id;
+  console.log(user);
   let shortURL = req.params.shortURL;
   let longURL = req.body.longURL;
-  updateUrl(shortURL, longURL);
+  updateUrl(shortURL, longURL, user);
   res.redirect('/urls');
 });
 

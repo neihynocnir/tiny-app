@@ -25,10 +25,11 @@
         </tr>
       </thead>
       <tbody>
+        <% console.log(urls) %>
         <% for(let url in urls) { %>
           <tr>
             <td><%= url %></td>
-            <td><%= urls[url] %></td>
+            <td><%= urls[url].longURL %></td>
             <td>
               <a class="btn btn-outline-primary" href="/urls/<%= url %>">Update</a>
             </td>
