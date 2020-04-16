@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const urlDatabase = require('../db/urlsDB');
 const generateRandomString = require('../controllers/genRandomSring');
-const findUser = require('../controllers/findUser')
+const findUserByID = require('../controllers/findUserByID')
 
 const addNewUrl = (shortURL, longURL) => {
   !longURL.includes('http') ? longURL = 'http://' + longURL : longURL;
@@ -22,18 +22,16 @@ router.get('/', (req, res) => {
 });
 
 router.get('/urls', (req, res) => {
-  let user = findUser(req.cookies["user_id"]);
   let templateVars = { 
-    user: user,
+    user: findUserByID(req.cookies["user_id"]),
     urls: urlDatabase
   };
   res.render("urls_index", templateVars);
 });
 
 router.get('/urls/new', (req, res) => {
-  let user = findUser(req.cookies["user_id"]);
   let templateVars = { 
-    user: user
+    user: findUserByID(req.cookies["user_id"]),
   };
   res.render("urls_new", templateVars);
 });
@@ -46,9 +44,8 @@ router.post('/urls',(req,res) => {
 });
 
 router.get('/urls/:shortURL', (req, res) => {
-  let user = findUser(req.cookies["user_id"]);
   let templateVars = { 
-    user: user,
+    user: findUserByID(req.cookies["user_id"]),
     shortURL: req.params.shortURL, 
     longURL: urlDatabase[req.params.shortURL]
   };
@@ -61,9 +58,8 @@ router.get('/u/:shortURL', (req, res) => {
 });
 
 router.get('/urls/:shortURL/update', (req, res) => {
-  let user = findUser(req.cookies["user_id"]);
   let templateVars = { 
-    user: user,
+    user: findUserByID(req.cookies["user_id"]),
     shortURL: req.params.shortURL, 
     longURL: urlDatabase[req.params.shortURL]
   };
