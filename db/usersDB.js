@@ -10,7 +10,5 @@ const users = {
       password: "dishwasher-funk"
     }
   };
-  
-
 
 module.exports = users;
