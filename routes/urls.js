@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
 router.get('/urls', (req, res) => {
   let templateVars = { 
-    user: findUserByID(req.cookies["user_id"]),
+    user: findUserByID(req.session["user_id"]),
     urls: urlDatabase
   };
   res.render("urls_index", templateVars);
@@ -35,7 +35,7 @@ router.get('/urls', (req, res) => {
 
 router.get('/urls/new', (req, res) => {
   let templateVars = { 
-    user: findUserByID(req.cookies["user_id"]),
+    user: findUserByID(req.session["user_id"]),
   };
   res.render("urls_new", templateVars);
 });
@@ -49,7 +49,7 @@ router.post('/urls',(req,res) => {
 
 router.get('/urls/:shortURL', (req, res) => {
   let templateVars = { 
-    user: findUserByID(req.cookies["user_id"]),
+    user: findUserByID(req.session["user_id"]),
     shortURL: req.params.shortURL, 
     longURL: urlDatabase[req.params.shortURL]
   };
@@ -63,7 +63,7 @@ router.get('/u/:shortURL', (req, res) => {
 
 router.get('/urls/:shortURL/update', (req, res) => {
   let templateVars = { 
-    user: findUserByID(req.cookies["user_id"]),
+    user: findUserByID(req.session["user_id"]),
     shortURL: req.params.shortURL, 
     longURL: urlDatabase[req.params.shortURL]
   };

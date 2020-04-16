@@ -14,7 +14,7 @@ const registerUser = (email, password) => {
 }
 
 router.get('/register', (req, res) => {
-  res.clearCookie('user_id')
+  req.session['user_id'] = null; 
   res.render("registration");
 });
 
@@ -22,7 +22,7 @@ router.post('/register', (req,res) => {
   const { email, password } = req.body;
   userID = registerUser(email, password);
   if (userID) {
-    res.cookie('user_id', userID); 
+    req.session['user_id'] = userID; 
     console.log(users);
     res.redirect('/urls/');
   } else {

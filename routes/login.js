@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
   user = findUserByEmail(email);
   if (user) {
     if (user.password === password) {
-      res.cookie('user_id', user.id); 
+      req.session['user_id'] = user.id; 
       res.redirect('/urls/');
     } 
     res.redirect('/login'); // password did not match try again
@@ -29,7 +29,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/logout', (req,res) => {
-  res.clearCookie('user_id');
+  req.session['user_id'] = null;
   res.redirect('/login')
 })
 
