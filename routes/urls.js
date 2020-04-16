@@ -20,11 +20,7 @@ const deleteUrl = (shortURL) => {
   delete urlDatabase[shortURL];
 };
 
-
-router.get('/', (req, res) => {
-  res.redirect('/urls');
-});
-
+// LIST of URLS
 router.get('/urls', (req, res) => {
   let templateVars = { 
     user: findUserByID(req.session["user_id"]),
@@ -33,6 +29,7 @@ router.get('/urls', (req, res) => {
   res.render("urls_index", templateVars);
 });
 
+// Display the form to add a new URL
 router.get('/urls/new', (req, res) => {
   let templateVars = { 
     user: findUserByID(req.session["user_id"]),
@@ -40,6 +37,7 @@ router.get('/urls/new', (req, res) => {
   res.render("urls_new", templateVars);
 });
 
+// Add the new URL
 router.post('/urls',(req,res) => {
   let shortURL = generateRandomString();
   let longURL = req.body.longURL;
@@ -47,6 +45,7 @@ router.post('/urls',(req,res) => {
   res.redirect(`/urls/${shortURL}`);
 });
 
+// Display a specific URL
 router.get('/urls/:shortURL', (req, res) => {
   let templateVars = { 
     user: findUserByID(req.session["user_id"]),
@@ -56,11 +55,13 @@ router.get('/urls/:shortURL', (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+// Redirect to the URL
 router.get('/u/:shortURL', (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(`${longURL}`);
 });
 
+// Display the form to update a specific URL
 router.get('/urls/:shortURL/update', (req, res) => {
   let templateVars = { 
     user: findUserByID(req.session["user_id"]),
@@ -70,6 +71,7 @@ router.get('/urls/:shortURL/update', (req, res) => {
   res.render('urls_show', templateVars)
 });
 
+// Update the specific URL
 router.post('/urls/:shortURL', (req, res) => {
   let shortURL = req.params.shortURL;
   let longURL = req.body.longURL;
@@ -77,6 +79,7 @@ router.post('/urls/:shortURL', (req, res) => {
   res.redirect('/urls');
 });
 
+// Delete a specific URL
 router.post('/urls/:shortURL/delete', (req, res) => {
   let shortURL = req.params.shortURL;
   deleteUrl(shortURL);

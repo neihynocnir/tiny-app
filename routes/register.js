@@ -12,12 +12,13 @@ const registerUser = (email, password) => {
     return newID;
   }
 }
-
+// Display the form to Create User
 router.get('/register', (req, res) => {
   req.session['user_id'] = null; 
   res.render("registration");
 });
 
+// Create user 
 router.post('/register', (req,res) => {
   const { email, password } = req.body;
   userID = registerUser(email, password);

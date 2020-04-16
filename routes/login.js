@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const findUserByEmail = require('../controllers/findUserByEmail');
 
+// base page
 router.get('/', (req, res) => {
-
   // res.redirect('/login');
   res.redirect('/urls');
 });
 
-
+// Display the form to login
 router.get('/login', (req, res) => {
   res.render("signin");
 });
 
+// Login 
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   console.log(email);
@@ -28,6 +29,7 @@ router.post('/login', (req, res) => {
   res.redirect('/register'); // user was not found go to register
 });
 
+// Logout
 router.post('/logout', (req,res) => {
   req.session['user_id'] = null;
   res.redirect('/login')
