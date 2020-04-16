@@ -4,8 +4,7 @@ const findUserByEmail = require('../controllers/findUserByEmail');
 
 // base page
 router.get('/', (req, res) => {
-  // res.redirect('/login');
-  res.redirect('/urls');
+  (req.session["user_id"]) ? res.redirect('/urls') : res.redirect('/login');
 });
 
 // Display the form to login
