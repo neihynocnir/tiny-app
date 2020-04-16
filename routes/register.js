@@ -15,16 +15,21 @@ const registerUser = (email, password) => {
   return newID;
 }
 
-
 router.get('/register', (req, res) => {
   res.render("registration");
 });
 
 router.post('/register', (req,res) => {
   const { email, password } = req.body;
-  res.cookie('user_id', registerUser(email, password)); 
-  console.log(users);
-  res.redirect('/urls/');
+  userID = registerUser(email, password);
+  if (userID === false) {
+    res.status(400);
+    throw new Error('user already exist')
+  } else {
+    res.cookie('user_id', registerUser(email, password)); 
+    console.log(users);
+    res.redirect('/urls/');
+  }
 })
 
 module.exports = router;
