@@ -1,14 +1,14 @@
 //DB of users
 const users = { 
-    "userRandomID": {
-      id: "userRandomID", 
+    "bgfaJ4": {
+      id: "bgfaJ4", 
       email: "user@example.com", 
-      password: "purple-monkey-dinosaur"
+      password: "azul-blanco"
     },
-   "user2RandomID": {
-      id: "user2RandomID", 
-      email: "user2@example.com", 
-      password: "dishwasher-funk"
+   "aJ48lW": {
+      id: "aJ48lW", 
+      email: "resu@example.com", 
+      password: "blanco-rojo"
     }
   };
 

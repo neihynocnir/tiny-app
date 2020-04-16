@@ -2,10 +2,14 @@ const express = require('express');
 const router = express.Router();
 const findUserByEmail = require('../controllers/findUserByEmail');
 
- 
+router.get('/', (req, res) => {
+
+  // res.redirect('/login');
+  res.redirect('/urls');
+});
+
 
 router.get('/login', (req, res) => {
-  res.clearCookie('user_id')
   res.render("signin");
 });
 
