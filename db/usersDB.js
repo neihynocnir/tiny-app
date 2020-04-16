@@ -1,3 +1,4 @@
+//DB of users
 const users = { 
     "userRandomID": {
       id: "userRandomID", 

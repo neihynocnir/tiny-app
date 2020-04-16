@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../db/usersDB');
-const generateRandomString = require('../controllers/genRandomSring');
+const generateRandomString = require('../controllers/genRandomString');
 const findUserByEmail = require('../controllers/findUserByEmail');
 
-
+// CREATE a new USER in DB
 const registerUser = (email, password) => {
   if (!findUserByEmail(email)) {
     let newID = generateRandomString();

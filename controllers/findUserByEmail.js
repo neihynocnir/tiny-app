@@ -1,5 +1,6 @@
 const users = require('../db/usersDB');
 
+// Find User by email
 const findUserbyEmail = (email) => {
   for (let key in users){
     let user = users[key];

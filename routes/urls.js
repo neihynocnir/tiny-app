@@ -1,21 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const urlDatabase = require('../db/urlsDB');
-const generateRandomString = require('../controllers/genRandomSring');
+const generateRandomString = require('../controllers/genRandomString');
 const findUserByID = require('../controllers/findUserByID')
 
+// CREATE an new URL in DB
 const addNewUrl = (shortURL, longURL) => {
   !longURL.includes('http') ? longURL = 'http://' + longURL : longURL;
   urlDatabase[shortURL] = longURL;
 };
 
+// UPDATE an URL in DB
 const updateUrl = (shortURL, longURL) => {
   urlDatabase[shortURL] = longURL;
 };
 
+// DELETE an URL in DB
 const deleteUrl = (shortURL) => {
   delete urlDatabase[shortURL];
 };
+
 
 router.get('/', (req, res) => {
   res.redirect('/urls');
