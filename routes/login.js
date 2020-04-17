@@ -16,7 +16,7 @@ const authUser = (email, password) => {
   }
 };
 
-// redirect according with user 
+// redirect according with user
 router.get('/', (req, res) => {
   (req.session["user_id"]) ? res.redirect('/urls') : res.redirect('/login');
 });
@@ -26,25 +26,25 @@ router.get('/login', (req, res) => {
   res.render("signin");
 });
 
-// Login 
+// Login
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  user = authUser(email, password);
-  if (!userByEmail(email)){
+  let user = authUser(email, password);
+  if (!userByEmail(email)) {
     res.status(401).send('User does not exist please go and <a href="/register">register</a>');
-  };
+  }
   if (user) {
-    req.session['user_id'] = user.id; 
+    req.session['user_id'] = user.id;
     res.redirect('/urls/');
   } else {
     res.status(401).send('Password did not match try again <a href="/">login</a>');
-  }; 
+  }
 });
 
 // Logout
 router.post('/logout', (req,res) => {
   req.session['user_id'] = null;
-  res.redirect('/login')  // I didn't redirect to '/urls because if we is loging out then according with the requirements of GET /urls if not logged in then returns an error message.
-})
+  res.redirect('/login');  // I didn't redirect to '/urls because if we is loging out then according with the requirements of GET /urls if not logged in then returns an error message.
+});
 
 module.exports = router;

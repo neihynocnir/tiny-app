@@ -30,31 +30,31 @@ const validUrl = (shortURL) => {
     }
   }
   return false;
-}
+};
 
 // LIST of URLS
 router.get('/urls', (req, res) => {
   if (req.session["user_id"]) {
-    let templateVars = { 
+    let templateVars = {
       user: userByID(req.session.user_id),
       urls: urlsByUser(req.session.user_id)
     };
     res.render("urls_index", templateVars);
   } else {
     res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
-  };
+  }
 });
 
 // Display the form to add a new URL
 router.get('/urls/new', (req, res) => {
   if (req.session["user_id"]) {
-    let templateVars = { 
+    let templateVars = {
       user: userByID(req.session["user_id"]),
     };
     res.render("urls_new", templateVars);
   } else {
     res.redirect('/login');
-  };
+  }
 });
 
 // Add the new URL
@@ -74,27 +74,27 @@ router.post('/urls',(req,res) => {
 router.get('/urls/:shortURL', (req, res) => {
   if (!validUrl(req.params.shortURL)) res.status(404).send('shortURL does not exist, <a href="/urls"> urls </a>');
   if (req.session["user_id"]) {
-    if (ownerURL(req.params.shortURL) === userByID(req.session["user_id"]).id){
-      let templateVars = { 
+    if (ownerURL(req.params.shortURL) === userByID(req.session["user_id"]).id) {
+      let templateVars = {
         user: userByID(req.session["user_id"]),
-        shortURL: req.params.shortURL, 
+        shortURL: req.params.shortURL,
         longURL: urlDatabase[req.params.shortURL]
       };
       res.render("urls_show", templateVars);
     } res.status(403).send('Forbidden, just owner has access, please go back to your <a href="/urls"> urls </a>');
   } else {
     res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
-  };
+  }
 });
 
 // Redirect to the URL
 router.get('/u/:shortURL', (req, res) => {
-  if (validUrl(req.params.shortURL)){
+  if (validUrl(req.params.shortURL)) {
     let longURL = urlDatabase[req.params.shortURL].longURL;
     res.redirect(`${longURL}`);
   } else {
     res.status(404).send('shortURL does not exist, <a href="/urls"> urls </a>');
-  };
+  }
 });
 
 // Display the form to update a specific URL
@@ -102,17 +102,17 @@ router.get('/urls/:shortURL/update', (req, res) => {
   if (!validUrl(req.params.shortURL)) res.status(404).send('shortURL does not exist, <a href="/urls"> urls </a>');
   if (req.session["user_id"]) {
     if (ownerURL(req.params.shortURL) === userByID(req.session["user_id"]).id) {
-      let templateVars = { 
-      user: userByID(req.session["user_id"]),
-      shortURL: req.params.shortURL, 
-      longURL: urlDatabase[req.params.shortURL]
+      let templateVars = {
+        user: userByID(req.session["user_id"]),
+        shortURL: req.params.shortURL,
+        longURL: urlDatabase[req.params.shortURL]
       };
       res.render('urls_show', templateVars);
-    }; 
+    }
     res.status(403).send('Forbidden, just owner has access, please go back to your <a href="/urls"> urls </a>');
   } else {
     res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
-  };
+  }
 });
 
 // Update the specific URL
@@ -128,7 +128,7 @@ router.post('/urls/:shortURL', (req, res) => {
     } res.status(403).send('Forbidden, just owner has access, please go back to your <a href="/urls"> urls </a>');
   } else {
     res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
-  };
+  }
 });
 
 // Delete a specific URL
@@ -139,11 +139,11 @@ router.post('/urls/:shortURL/delete', (req, res) => {
       let shortURL = req.params.shortURL;
       deleteUrl(shortURL);
       res.redirect('/urls/');
-    }; 
+    }
     res.status(403).send('Forbidden, permissions just for the owner');
-  } else { 
+  } else {
     res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
-  }; 
+  }
 });
 
 module.exports = router;

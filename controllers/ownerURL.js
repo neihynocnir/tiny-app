@@ -5,11 +5,11 @@ const ownerURL = (shortURL) => {
   for (let each in urlsDB) {
     if (each === shortURL) {
       let userID = urlsDB[each].userID;
-      return userID; 
-    } 
+      return userID;
+    }
   }
   return undefined;
-}
+};
 
 
 module.exports = ownerURL;
