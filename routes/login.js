@@ -44,7 +44,7 @@ router.post('/login', (req, res) => {
 // Logout
 router.post('/logout', (req,res) => {
   req.session['user_id'] = null;
-  res.redirect('/login')
+  res.redirect('/login')  // I didn't redirect to '/urls because if we is loging out then according with the requirements of GET /urls if not logged in then returns an error message.
 })
 
 module.exports = router;

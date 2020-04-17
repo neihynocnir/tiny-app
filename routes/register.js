@@ -27,15 +27,16 @@ router.get('/register', (req, res) => {
 // Create user 
 router.post('/register', (req,res) => {
   const { email, password } = req.body;
+  if (email === '' || password === '') res.status(401).send('Please fill out fields of email or password, back to <a href="/register">register</a>');
   userID = registerUser(email, password);
   if (userID) {
     req.session['user_id'] = userID; 
     console.log(users);
     res.redirect('/urls/');
   } else {
-    res.status(400);
-    throw new Error('user already exist')
+    res.status(401).send('User alredy exist please go and <a href="/login">login</a> with this user');
   }
 })
+
 
 module.exports = router;
