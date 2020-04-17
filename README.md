@@ -27,8 +27,9 @@ TinyApp is a solution to shorten links in order to share them in twitter, the we
 
 
 ## Notes
-express-generator was used to initial generate the structure of the project and by default the port was 3000; but was changed at /bin/www to 8080
+- express-generator was used to initial generate the structure of the project and by default the port was `3000`; but was changed at `./bin/www` to `8080`
+- also at `package.json` the start command is using `nodemon`
 
 ## Author
 
-[Neihy Rincon](neihy.rincon@gmail.com).
+[Neihy Rincon](neihy.rincon@gmail.com). :dizzy:
