@@ -1,6 +1,6 @@
 const urlsDB = require('../db/urlsDB')
 
-const urlsForUser = (userID) => {
+const urlsByUser = (userID) => {
   let urlsUser = {};
   for (let shortUrl in urlsDB) {
     if (urlsDB[shortUrl].userID === userID){
@@ -10,4 +10,4 @@ const urlsForUser = (userID) => {
   return urlsUser
 };
 
-module.exports = urlsForUser;
+module.exports = urlsByUser;

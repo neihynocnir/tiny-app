@@ -1,7 +1,7 @@
 const users = require('../db/usersDB');
 
 // Find User by email
-const findUserbyEmail = (email) => {
+const userByEmail = (email) => {
   for (let key in users){
     let user = users[key];
     if (user.email === email) {
@@ -11,4 +11,4 @@ const findUserbyEmail = (email) => {
   return false;
 }
 
-module.exports = findUserbyEmail;
+module.exports = userByEmail;

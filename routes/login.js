@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const findUserByEmail = require('../controllers/findUserByEmail');
+const userByEmail = require('../controllers/userByEmail');
 
 // base page
 router.get('/', (req, res) => {
@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
   console.log(email);
   console.log(password);
-  user = findUserByEmail(email);
+  user = userByEmail(email);
   if (user) {
     if (user.password === password) {
       req.session['user_id'] = user.id; 

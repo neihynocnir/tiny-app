@@ -1,7 +1,7 @@
 const users = require('../db/usersDB');
 
 // Find User by ID 
-const findUserByID = (userID) => {
+const userByID = (userID) => {
   for (let key in users) {
     if (users[key].id === userID){
       return (users[key]);
@@ -10,4 +10,4 @@ const findUserByID = (userID) => {
   return undefined
 }
 
-module.exports = findUserByID;
+module.exports = userByID;
