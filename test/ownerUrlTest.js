@@ -14,4 +14,10 @@ describe('ownerURL', function() {
     let expectedOutput = 'bgfaJ4';
     assert.equal(ownerID, expectedOutput);
   });
+
+  it('should return undefined  for an invalid shortURL', function() {
+    let ownerID = ownerURL('testab')
+    let expectedOutput = undefined;
+    assert.equal(ownerID, expectedOutput);
+  });
 });

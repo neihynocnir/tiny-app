@@ -8,4 +8,10 @@ describe('userByEmail', function() {
     const expectedOutput = users.bgfaJ4;
     assert.equal(user, expectedOutput);
   });
+
+  it('should return undefined for an invalid email', function() {
+    const user = userByEmail("neihy@example.com")
+    const expectedOutput = undefined;
+    assert.equal(user, expectedOutput);
+  });
 });

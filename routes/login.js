@@ -12,7 +12,7 @@ const authUser = (email, password) => {
     return user;
   } else {
     // Otherwise return false
-    return false;
+    return undefined;
   }
 };
 

@@ -9,4 +9,10 @@ describe('userByID', function() {
     const expectedOutput = users.bgfaJ4;
     assert.equal(user, expectedOutput);
   });
+
+  it('should return undefined for an invalid ID', function() {
+    const user = userByID('testab')
+    const expectedOutput = undefined;
+    assert.equal(user, expectedOutput);
+  });
 });
