@@ -12,7 +12,7 @@ const authUser = (email, password) => {
     return user;
   } else {
     // Otherwise return false
-    return undefined;
+    return false;
   }
 };
 
@@ -30,11 +30,15 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   user = authUser(email, password);
+  if (!userByEmail(email)){
+    res.status(401).send('User does not exist please go and <a href="/register">register</a>');
+  };
   if (user) {
     req.session['user_id'] = user.id; 
     res.redirect('/urls/');
-    } 
-    res.redirect('/login'); // password did not match try again
+  } else {
+    res.status(401).send('Password did not match try again <a href="/">login</a>');
+  }; 
 });
 
 // Logout

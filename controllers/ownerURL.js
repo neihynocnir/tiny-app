@@ -4,10 +4,12 @@ const urlsDB = require('../db/urlsDB');
 const ownerURL = (shortURL) => {
   for (let each in urlsDB) {
     if (each === shortURL) {
-      return (urlsDB[each].userID); 
+      let userID = urlsDB[each].userID;
+      return userID; 
     } 
   }
-  return null;
+  return undefined;
 }
+
 
 module.exports = ownerURL;
