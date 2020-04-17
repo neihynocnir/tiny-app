@@ -1,6 +1,6 @@
 const { assert } = require('chai');
-const { userByID } = require('../controllers/userByID');
-const { users } = require('../db/usersDB');
+const  userByID  = require('../controllers/userByID');
+const  users  = require('../db/usersDB');
 
 
 describe('userByID', function() {
