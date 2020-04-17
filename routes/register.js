@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const users = require('../db/usersDB');
 const generateRandomString = require('../controllers/genRandomString');
 const userByEmail = require('../controllers/userByEmail');
@@ -7,10 +9,14 @@ const userByEmail = require('../controllers/userByEmail');
 // CREATE a new USER in DB
 const registerUser = (email, password) => {
   if (!userByEmail(email)) {
+    const salt = bcrypt.genSaltSync(saltRounds);
     let newID = generateRandomString();
-    users[newID] = { id: newID, email: email, password: password }
+    users[newID] = { 
+      id: newID, 
+      email: email, 
+      password: bcrypt.hashSync(password, salt), }
     return newID;
-  }
+  };
 }
 // Display the form to Create User
 router.get('/register', (req, res) => {

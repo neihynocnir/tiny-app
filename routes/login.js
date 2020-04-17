@@ -1,8 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const userByEmail = require('../controllers/userByEmail');
 
-// base page
+// authentication of User
+const authUser = (email, password) => {
+  const user = userByEmail(email);
+  // if we got a user back and the passwords match then return the userObj
+  if (user && bcrypt.compareSync(password, user.password)) {
+    // user is authenticated
+    return user;
+  } else {
+    // Otherwise return false
+    return false;
+  }
+};
+
+// redirect according with user 
 router.get('/', (req, res) => {
   (req.session["user_id"]) ? res.redirect('/urls') : res.redirect('/login');
 });
@@ -15,17 +29,12 @@ router.get('/login', (req, res) => {
 // Login 
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
-  console.log(password);
-  user = userByEmail(email);
+  user = authUser(email, password);
   if (user) {
-    if (user.password === password) {
-      req.session['user_id'] = user.id; 
-      res.redirect('/urls/');
+    req.session['user_id'] = user.id; 
+    res.redirect('/urls/');
     } 
     res.redirect('/login'); // password did not match try again
-  } 
-  res.redirect('/register'); // user was not found go to register
 });
 
 // Logout
