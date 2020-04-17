@@ -5,8 +5,8 @@ TinyApp is a solution to shorten links in order to share them in twitter, the we
 
 ## Final Product
 
-!["Login"](#)
-!["List of URLs"](#)
+!["Login"](https://github.com/neihynocnir/tiny-app/blob/master/docs/login.png)
+!["List of URLs"](https://github.com/neihynocnir/tiny-app/blob/master/docs/users.png)
 
 ## Dependencies
 
@@ -25,3 +25,10 @@ TinyApp is a solution to shorten links in order to share them in twitter, the we
 - Install all dependencies (using the `npm install` command).
 - Run the development web server using the  `npm start` command.
 
+
+## Notes
+express-generator was used to initial generate the structure of the project and by default the port was 3000; but was changed at /bin/www to 8080
+
+## Author
+
+[Neihy Rincon](neihy.rincon@gmail.com).
